@@ -11,13 +11,11 @@ import {
   Button,
   Badge,
 } from "react-bootstrap";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { AiOutlineSearch } from "react-icons/ai";
+
 const NavBar = () => {
   return (
     <div>
       <Navbar bg="light" expand="lg">
-
         <Navbar.Brand>
           <Nav.Link>
             <Link to="/">Music Shop</Link>
@@ -65,7 +63,6 @@ const NavBar = () => {
             <Nav.Link href="#home">Sale</Nav.Link>
           </Nav>
           <Form inline>
-
             <FormControl
               type="text"
               placeholder="Enter keyword or item #"
