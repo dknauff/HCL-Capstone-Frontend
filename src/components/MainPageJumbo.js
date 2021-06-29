@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 
 const MainPageJumbo = () => {
   return (
+
     <div>
       <Jumbotron style={{ backgroundColor: "" }}>
         <h1>Hi-5</h1>
-        <p>Your one-stop-shop for musical things. Trust me.</p>
+        <p>Your one-stop-shop for musical instruments</p>
         <p>
           <Button variant="primary">
             <Link to="/users/register" style={{ color: "white" }}>
