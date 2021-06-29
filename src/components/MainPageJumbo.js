@@ -1,19 +1,21 @@
+import { Jumbotron, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
 const MainPageJumbo = () => {
   return (
-    <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-3 float-md-center">
-      <div className="jumbotron">
-        <h2 className="display-2">Hi-5</h2>
-        <p className="lead">Your one-stop-shop for musical instruments</p>
-        <hr className="my-6" />
+
+    <div>
+      <Jumbotron style={{ backgroundColor: "" }}>
+        <h1>Hi-5</h1>
+        <p>Your one-stop-shop for musical instruments</p>
         <p>
-          {" "}
-          Looking to create your own musical masterpiece? You've come to the
-          right place!
+          <Button variant="primary">
+            <Link to="/users/register" style={{ color: "white" }}>
+              Get Started
+            </Link>
+          </Button>
         </p>
-        <button className="btn btn-primary btn-lg" role="button">
-          Start Shopping
-        </button>
-      </div>
+      </Jumbotron>
     </div>
   );
 };

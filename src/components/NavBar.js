@@ -1,3 +1,7 @@
+import { Link } from "react-router-dom";
+
+import { AiOutlineShoppingCart, AiOutlineSearch } from "react-icons/ai";
+
 import {
   Navbar,
   Nav,
@@ -5,6 +9,7 @@ import {
   Form,
   FormControl,
   Button,
+  Badge,
 } from "react-bootstrap";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -12,10 +17,25 @@ const NavBar = () => {
   return (
     <div>
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home">Home</Navbar.Brand>
+
+        <Navbar.Brand>
+          <Nav.Link>
+            <Link to="/">Music Shop</Link>
+          </Nav.Link>
+        </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
+            <Nav.Link>
+              <Link to="/">Home</Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/users/register">Register</Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/users/login">Login</Link>
+            </Nav.Link>
+
             <NavDropdown title="Shop By Department" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">
                 Drums and Percussion <NavDropdown.Divider />
@@ -38,19 +58,21 @@ const NavBar = () => {
                 <NavDropdown.Divider />
               </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.7">Recording</NavDropdown.Item>
+
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.8">Media</NavDropdown.Item>
             </NavDropdown>
             <Nav.Link href="#home">Sale</Nav.Link>
           </Nav>
           <Form inline>
+
             <FormControl
               type="text"
               placeholder="Enter keyword or item #"
               className="mr-sm-1"
             />
             <Button variant="success">
-              <AiOutlineSearch></AiOutlineSearch>
+              <AiOutlineSearch />
             </Button>
           </Form>
           <br />
