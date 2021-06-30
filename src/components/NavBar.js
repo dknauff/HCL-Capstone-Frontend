@@ -9,7 +9,6 @@ import {
   Form,
   FormControl,
   Button,
-  Badge,
 } from "react-bootstrap";
 
 const NavBar = () => {
@@ -17,22 +16,24 @@ const NavBar = () => {
     <div>
       <Navbar bg="light" expand="lg">
         <Navbar.Brand>
-          <Nav.Link>
-            <Link to="/">Music Shop</Link>
-          </Nav.Link>
+          <Link to="/" className="nav-link">
+            Music Shop
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link>
-              <Link to="/">Home</Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link to="/users/register">Register</Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link to="/users/login">Login</Link>
-            </Nav.Link>
+            <Link to="/" className="nav-link">
+              Home
+            </Link>
+
+            <Link to="/users/register" className="nav-link">
+              Register
+            </Link>
+
+            <Link to="/users/login" className="nav-link">
+              Login
+            </Link>
 
             <NavDropdown title="Shop By Department" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">

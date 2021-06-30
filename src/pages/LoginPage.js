@@ -1,6 +1,38 @@
+import { useState } from "react";
+import { Redirect } from "react-router-dom";
+
 import { Form, Button, Container, Row } from "react-bootstrap";
 
 const LoginPage = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
+
+  const submit = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch("http://localhost:8080/users/auth", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+
+    const content = await response.json();
+    console.log(content.jwtToken);
+
+    setRedirect(true);
+  };
+
+  if (redirect) {
+    return <Redirect to="/" />;
+  }
+
   return (
     <div>
       <Container>
@@ -8,15 +40,23 @@ const LoginPage = () => {
           <h2>Login</h2>
         </Row>
         <Row className="justify-content-sm-center">
-          <Form>
+          <Form onSubmit={submit}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Username</Form.Label>
-              <Form.Control type="text" placeholder="Enter Username" />
+              <Form.Control
+                type="text"
+                placeholder="Enter Username"
+                onChange={(e) => setUsername(e.target.value)}
+              />
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </Form.Group>
             <div style={{ textAlign: "center" }}>
               <Button variant="primary" type="submit">
