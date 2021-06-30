@@ -25,6 +25,8 @@ const LoginPage = () => {
 
     const content = await response.json();
     console.log(content.jwtToken);
+    const jwt = content.jwtToken;
+    sessionStorage.setItem("jwt", jwt);
 
     setRedirect(true);
   };

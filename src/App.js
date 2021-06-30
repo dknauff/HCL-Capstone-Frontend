@@ -5,6 +5,9 @@ import Footer from "./components/Footer";
 import MainPageJumbo from "./components/MainPageJumbo";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
+import ProductCard from "./components/ProductCard";
+import AllProductsPage from "./pages/AllProductsPage";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
 
 function App() {
   return (
@@ -21,6 +24,12 @@ function App() {
         </Route>
         <Route path="/users/login">
           <LoginPage />
+        </Route>
+        <Route path="/product/products" exact>
+          <AllProductsPage />
+        </Route>
+        <Route path="/productpage/">
+          <ProductDetailsPage />
         </Route>
         <Route path="/">
           <Footer />

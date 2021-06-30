@@ -14,7 +14,7 @@ import {
 const NavBar = () => {
   return (
     <div>
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="light" expand="lg" style={{ marginBottom: "40px" }}>
         <Navbar.Brand>
           <Link to="/" className="nav-link">
             Music Shop
@@ -61,7 +61,9 @@ const NavBar = () => {
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.8">Media</NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="#home">Sale</Nav.Link>
+            <Link to="/product/products" className="nav-link">
+              Sale
+            </Link>
           </Nav>
           <Form inline>
             <FormControl
