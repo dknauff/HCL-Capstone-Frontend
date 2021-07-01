@@ -6,6 +6,9 @@ import Footer from "./components/Footer";
 import MainPageJumbo from "./components/MainPageJumbo";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
+import LogoutPage from "./pages/LogoutPage";
+import PaymentPage from "./pages/PaymentPage";
+import ProductsPage from "./pages/ProductsPage";
 
 function App() {
   const [user, setUser] = useState([]);
@@ -37,6 +40,15 @@ function App() {
         </Route>
         <Route path="/users/login">
           <LoginPage />
+        </Route>
+        <Route path="/users/payment">
+          <PaymentPage />
+        </Route>
+        <Route path="/users/products">
+          <ProductsPage />
+        </Route>
+        <Route path="/users/logout">
+          <LogoutPage />
         </Route>
         <Route path="/">
           <Footer />
