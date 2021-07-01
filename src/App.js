@@ -11,7 +11,6 @@ import ProductCard from "./components/ProductCard";
 import AllProductsPage from "./pages/AllProductsPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 
-
 function App() {
   return (
     <div>
@@ -33,13 +32,12 @@ function App() {
         </Route>
         <Route path="/logout">
           <LogoutPage />
-
+        </Route>
         <Route path="/product/products" exact>
           <AllProductsPage />
         </Route>
         <Route path="/productpage/">
           <ProductDetailsPage />
-
         </Route>
         <Route path="/">
           <Footer />
