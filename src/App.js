@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { useState } from "react";
 
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
@@ -8,24 +7,12 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import LogoutPage from "./pages/LogoutPage";
 import PaymentPage from "./pages/PaymentPage";
-import ProductsPage from "./pages/ProductsPage";
+import ProductCard from "./components/ProductCard";
+import AllProductsPage from "./pages/AllProductsPage";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
+
 
 function App() {
-  const [user, setUser] = useState([]);
-
-  const registerUser = async (createdUser) => {
-    const res = await fetch("http://localhost:9001/users/register", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(createdUser),
-    });
-    const data = await res.json();
-
-    setUser([data]);
-  };
-
   return (
     <div>
       <Router>
@@ -36,19 +23,23 @@ function App() {
           <MainPageJumbo />
         </Route>
         <Route path="/users/register">
-          <RegisterPage onRegister={registerUser} />
+          <RegisterPage />
         </Route>
         <Route path="/users/login">
           <LoginPage />
         </Route>
-        <Route path="/users/payment">
+        <Route path="/payment">
           <PaymentPage />
         </Route>
-        <Route path="/users/products">
-          <ProductsPage />
-        </Route>
-        <Route path="/users/logout">
+        <Route path="/logout">
           <LogoutPage />
+
+        <Route path="/product/products" exact>
+          <AllProductsPage />
+        </Route>
+        <Route path="/productpage/">
+          <ProductDetailsPage />
+
         </Route>
         <Route path="/">
           <Footer />
