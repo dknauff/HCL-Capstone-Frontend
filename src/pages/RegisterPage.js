@@ -1,24 +1,34 @@
 import { useState } from "react";
+import { Redirect } from "react-router-dom";
 
 import { Form, Button, Container, Row } from "react-bootstrap";
 
-const RegisterPage = ({ onRegister }) => {
+const RegisterPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
-  const onSubmit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
 
-    if (!username || !password) {
-      alert("Please provide a user and password");
-      return;
-    }
-    let defaultRole = { roles: [{ name: "ROLE_USER" }] };
-    onRegister({ username, password, defaultRole });
+    const roles = [{ name: "ROLE_USER" }];
 
-    setUsername("");
-    setPassword("");
+    await fetch("http://localhost:8080/users/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username,
+        password,
+        roles,
+      }),
+    });
+
+    setRedirect(true);
   };
+
+  if (redirect) {
+    return <Redirect to="/users/login" />;
+  }
 
   return (
     <div>
@@ -27,7 +37,7 @@ const RegisterPage = ({ onRegister }) => {
           <h2>Register</h2>
         </Row>
         <Row className="justify-content-sm-center">
-          <Form onSubmit={onSubmit}>
+          <Form onSubmit={submit}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Username</Form.Label>
               <Form.Control
