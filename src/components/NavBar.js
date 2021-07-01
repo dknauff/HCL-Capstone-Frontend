@@ -23,6 +23,7 @@ const NavBar = () => {
         <Navbar.Toggle />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
+
             <Link to="/" className="nav-link">
               Home
             </Link>
@@ -34,6 +35,10 @@ const NavBar = () => {
             <Link to="/users/login" className="nav-link">
               Login
             </Link>
+
+              <Link to="/payment" className="nav-link">
+                PaymentPage
+              </Link>
 
             <NavDropdown title="Shop By Department" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">
@@ -61,9 +66,11 @@ const NavBar = () => {
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.8">Media</NavDropdown.Item>
             </NavDropdown>
+
             <Link to="/product/products" className="nav-link">
-              Sale
+              All Products
             </Link>
+
           </Nav>
           <Form inline>
             <FormControl
@@ -76,9 +83,12 @@ const NavBar = () => {
             </Button>
           </Form>
           <br />
-          <Button variant="danger" style={{ float: "left" }}>
+          <Button variant="danger" style={{ float: "left" }} id="cart-button">
             <AiOutlineShoppingCart />
           </Button>
+          <Nav.Link>
+            <Link to="/users/logout">Logout</Link>
+          </Nav.Link>
         </Navbar.Collapse>
       </Navbar>
     </div>
