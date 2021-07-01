@@ -81,9 +81,14 @@ const NavBar = () => {
             </Button>
           </Form>
           <br />
-          <Button variant="danger" style={{ float: "left" }} id="cart-button">
+          <Link
+            to="/cart"
+            className="btn btn-danger"
+            style={{ float: "left" }}
+            id="cart-button"
+          >
             <AiOutlineShoppingCart />
-          </Button>
+          </Link>
           <Nav.Link>
             <Link to="/logout">Logout</Link>
           </Nav.Link>

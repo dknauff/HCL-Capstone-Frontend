@@ -14,6 +14,8 @@ const ProductList = (props) => {
               name={product.name}
               description={product.description}
               price={product.price}
+              imageUrl={product.imageUrl}
+              quantity={product.quantity}
             />
           ))}
         </Row>
