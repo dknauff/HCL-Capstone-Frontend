@@ -17,7 +17,7 @@ const NavBar = () => {
       <Navbar bg="light" expand="lg" style={{ marginBottom: "40px" }}>
         <Navbar.Brand>
           <Link to="/" className="nav-link">
-            Music Shop
+            Hi-5 Music Shop
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle />
