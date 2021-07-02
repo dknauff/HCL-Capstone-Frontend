@@ -27,7 +27,7 @@ const RegisterPage = () => {
   };
 
   if (redirect) {
-    return <Redirect to="/users/login" />;
+    return <Redirect to="/login" />;
   }
 
   return (

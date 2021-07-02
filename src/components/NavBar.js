@@ -1,15 +1,10 @@
 import { Link } from "react-router-dom";
 
-import { AiOutlineShoppingCart, AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
-import {
-  Navbar,
-  Nav,
-  NavDropdown,
-  Form,
-  FormControl,
-  Button,
-} from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
+
+// Get Category by id
 
 const NavBar = () => {
   return (
@@ -17,7 +12,7 @@ const NavBar = () => {
       <Navbar bg="light" expand="lg" style={{ marginBottom: "40px" }}>
         <Navbar.Brand>
           <Link to="/" className="nav-link">
-            Music Shop
+            Hi-5 Music Shop
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle />
@@ -27,59 +22,11 @@ const NavBar = () => {
               Home
             </Link>
 
-            <Link to="/users/register" className="nav-link">
-              Register
-            </Link>
-
-            <Link to="/users/login" className="nav-link">
-              Login
-            </Link>
-
-            <Link to="/payment" className="nav-link">
-              PaymentPage
-            </Link>
-
-            <NavDropdown title="Shop By Department" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">
-                Drums and Percussion <NavDropdown.Divider />
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Guitars <NavDropdown.Divider />
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">
-                Amplifiers <NavDropdown.Divider />
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.4">
-                Keyboards <NavDropdown.Divider />
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.5">
-                Microphones
-                <NavDropdown.Divider />
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.6">
-                Accessories
-                <NavDropdown.Divider />
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.7">Recording</NavDropdown.Item>
-
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.8">Media</NavDropdown.Item>
-            </NavDropdown>
-
-            <Link to="/product/products" className="nav-link">
-              All Products
+            <Link to="/products" className="nav-link">
+              Products
             </Link>
           </Nav>
-          <Form inline>
-            <FormControl
-              type="text"
-              placeholder="Enter keyword or item #"
-              className="mr-sm-1"
-            />
-            <Button variant="success">
-              <AiOutlineSearch />
-            </Button>
-          </Form>
+
           <br />
           <Link
             to="/cart"

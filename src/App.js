@@ -10,6 +10,7 @@ import LogoutPage from "./pages/LogoutPage";
 import PaymentPage from "./pages/PaymentPage";
 import AllProductsPage from "./pages/AllProductsPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
+import OrderedPage from "./pages/OrderedPage";
 
 function App() {
   return (
@@ -21,10 +22,10 @@ function App() {
         <Route path="/" exact>
           <MainPageJumbo />
         </Route>
-        <Route path="/users/register">
+        <Route path="/register">
           <RegisterPage />
         </Route>
-        <Route path="/users/login">
+        <Route path="/login">
           <LoginPage />
         </Route>
         <Route path="/payment">
@@ -33,7 +34,7 @@ function App() {
         <Route path="/logout">
           <LogoutPage />
         </Route>
-        <Route path="/product/products" exact>
+        <Route path="/products" exact>
           <AllProductsPage />
         </Route>
         <Route path="/productpage/">
@@ -41,6 +42,9 @@ function App() {
         </Route>
         <Route path="/cart">
           <CartPage />
+        </Route>
+        <Route path="/purchase">
+          <OrderedPage />
         </Route>
         <Route path="/">
           <Footer />

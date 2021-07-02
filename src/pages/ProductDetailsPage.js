@@ -2,7 +2,9 @@ import { Card } from "react-bootstrap";
 
 import { useEffect, useState } from "react";
 
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
+import { Button } from "react-bootstrap";
 
 const ProductDetailsPage = () => {
   const id = useLocation().state.id;
@@ -35,13 +37,13 @@ const ProductDetailsPage = () => {
   }, []);
 
   const addToCart = async () => {
-    const res = await fetch(`http://localhost:8080/cart/add/${id}`, {
+    await fetch(`http://localhost:8080/cart/add/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + sessionStorage.getItem("jwt"),
       },
-      body: JSON.stringify(2),
+      body: JSON.stringify(1),
     });
   };
 
@@ -72,9 +74,13 @@ const ProductDetailsPage = () => {
             </center>
             <Card.Text>{loadedProduct.description}</Card.Text>
             <center>
-              <Link className="btn btn-primary" onClick={addToCart} to="/">
+              <Button
+                className="btn btn-primary"
+                onClick={addToCart}
+                href="/cart"
+              >
                 Add to Cart
-              </Link>
+              </Button>
             </center>
           </Card.Body>
         </Card>
