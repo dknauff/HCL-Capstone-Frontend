@@ -11,13 +11,10 @@ import LogoutPage from "./pages/LogoutPage";
 import PaymentPage from "./pages/PaymentPage";
 import AllProductsPage from "./pages/AllProductsPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
-<<<<<<< HEAD
 import AdminPage from "./pages/AdminPage";
 
 import { useState, useEffect } from "react";
-=======
 import OrderedPage from "./pages/OrderedPage";
->>>>>>> b4c0782ffc770a8efd640d3f91820d9e1a1e3643
 
 function App() {
   const [roles, setRoles] = useState([]);
@@ -90,49 +87,32 @@ function App() {
         <Route path="/login">
           <LoginPage />
         </Route>
-<<<<<<< HEAD
-        {validLogin && (
-            <Route path="/payment">
-              <PaymentPage />
-            </Route>
-          ) && (
-            <Route path="/logout">
-              <LogoutPage />
-            </Route>
-          ) && (
-            <Route path="/product/products" exact>
-              <AllProductsPage />
-            </Route>
-          ) && (
-            <Route path="/productpage/">
-              <ProductDetailsPage />
-            </Route>
-          )}
+        {validLogin && 
+        <Route path="/payment">
+          <PaymentPage />
+        </Route> &&
+        <Route path="/logout">
+          <LogoutPage />
+        </Route> &&
+        <Route path="/products" exact>
+          <AllProductsPage />
+        </Route> &&
+        <Route path="/productpage/">
+          <ProductDetailsPage />
+        </Route> &&
+        <Route path="/cart">
+          <CartPage />
+        </Route> &&
+        <Route path="/purchase">
+          <OrderedPage />
+        </Route>
+        }
         {validLogin && roles.includes("ROLE_ADMIN") && (
           <Route path="/adminpage">
             <AdminPage />
           </Route>
         )}
-=======
-        <Route path="/payment">
-          <PaymentPage />
-        </Route>
-        <Route path="/logout">
-          <LogoutPage />
-        </Route>
-        <Route path="/products" exact>
-          <AllProductsPage />
-        </Route>
-        <Route path="/productpage/">
-          <ProductDetailsPage />
-        </Route>
-        <Route path="/cart">
-          <CartPage />
-        </Route>
-        <Route path="/purchase">
-          <OrderedPage />
-        </Route>
->>>>>>> b4c0782ffc770a8efd640d3f91820d9e1a1e3643
+
         <Route path="/">
           <Footer />
         </Route>
