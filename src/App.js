@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 
+import CartPage from "./pages/CartPage";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import MainPageJumbo from "./components/MainPageJumbo";
@@ -8,12 +9,15 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import LogoutPage from "./pages/LogoutPage";
 import PaymentPage from "./pages/PaymentPage";
-import ProductCard from "./components/ProductCard";
 import AllProductsPage from "./pages/AllProductsPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
+<<<<<<< HEAD
 import AdminPage from "./pages/AdminPage";
 
 import { useState, useEffect } from "react";
+=======
+import OrderedPage from "./pages/OrderedPage";
+>>>>>>> b4c0782ffc770a8efd640d3f91820d9e1a1e3643
 
 function App() {
   const [roles, setRoles] = useState([]);
@@ -80,12 +84,13 @@ function App() {
         <Route path="/" exact>
           <MainPageJumbo />
         </Route>
-        <Route path="/users/register">
+        <Route path="/register">
           <RegisterPage />
         </Route>
-        <Route path="/users/login">
+        <Route path="/login">
           <LoginPage />
         </Route>
+<<<<<<< HEAD
         {validLogin && (
             <Route path="/payment">
               <PaymentPage />
@@ -108,6 +113,26 @@ function App() {
             <AdminPage />
           </Route>
         )}
+=======
+        <Route path="/payment">
+          <PaymentPage />
+        </Route>
+        <Route path="/logout">
+          <LogoutPage />
+        </Route>
+        <Route path="/products" exact>
+          <AllProductsPage />
+        </Route>
+        <Route path="/productpage/">
+          <ProductDetailsPage />
+        </Route>
+        <Route path="/cart">
+          <CartPage />
+        </Route>
+        <Route path="/purchase">
+          <OrderedPage />
+        </Route>
+>>>>>>> b4c0782ffc770a8efd640d3f91820d9e1a1e3643
         <Route path="/">
           <Footer />
         </Route>

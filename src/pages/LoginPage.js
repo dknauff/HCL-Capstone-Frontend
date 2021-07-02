@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Redirect } from "react-router-dom";
 
+import { Link } from "react-router-dom";
+
 import { Form, Button, Container, Row } from "react-bootstrap";
 
 const LoginPage = () => {
@@ -28,7 +30,19 @@ const LoginPage = () => {
     const jwt = content.jwtToken;
     sessionStorage.setItem("jwt", jwt);
 
+    createCart();
     setRedirect(true);
+  };
+
+  const createCart = async () => {
+    await fetch("http://localhost:8080/cart/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({}),
+    });
   };
 
   if (redirect) {
@@ -61,9 +75,20 @@ const LoginPage = () => {
               />
             </Form.Group>
             <div style={{ textAlign: "center" }}>
-              <Button variant="primary" type="submit">
+              <Button
+                variant="primary"
+                type="submit"
+                style={{ marginLeft: "15px", marginRight: "15px" }}
+              >
                 Submit
               </Button>
+              <Link
+                className="btn btn-success"
+                to="/register"
+                style={{ marginLeft: "15px", marginRight: "15px" }}
+              >
+                New?
+              </Link>
             </div>
           </Form>
         </Row>

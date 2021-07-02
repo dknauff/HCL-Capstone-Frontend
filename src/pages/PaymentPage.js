@@ -1,6 +1,30 @@
-import { Form, Button, Container, Row } from "react-bootstrap";
+import { Form, Container, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const PaymentPage = () => {
+  const deleteCart = async () => {
+    await fetch("http://localhost:8080/cart/delete", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem("jwt"),
+      },
+    }).then(() => {
+      createCart();
+    });
+  };
+
+  const createCart = async () => {
+    await fetch("http://localhost:8080/cart/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({}),
+    });
+  };
+
   return (
     <div>
       <Container>
@@ -25,9 +49,13 @@ const PaymentPage = () => {
               <Form.Control type="password" placeholder="Enter Expiry Date" />
             </Form.Group>
             <div style={{ textAlign: "center" }}>
-              <Button variant="primary" type="submit">
+              <Link
+                className="btn btn-primary"
+                to="/purchase"
+                onClick={deleteCart}
+              >
                 Place Order
-              </Button>
+              </Link>
             </div>
           </Form>
         </Row>
