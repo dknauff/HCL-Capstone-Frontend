@@ -2,6 +2,8 @@ import ProductList from "../components/ProductList";
 
 import { useState, useEffect } from "react";
 
+import { Link } from "react-router-dom";
+
 sessionStorage.getItem("jwt");
 
 const CartPage = () => {
@@ -51,6 +53,9 @@ const CartPage = () => {
     <div>
       <center>
         <h1>Cart</h1>
+        <Link to="/payment" className="btn btn-success">
+          Purchase
+        </Link>
       </center>
       <ProductList products={cartProducts} />
     </div>

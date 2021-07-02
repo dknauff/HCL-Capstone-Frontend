@@ -9,8 +9,8 @@ const MainPageJumbo = () => {
         <p>Your one-stop-shop for musical instruments</p>
         <p>
           <Button variant="primary">
-            <Link to="/users/register" style={{ color: "white" }}>
-              Get Started
+            <Link to="/login" style={{ color: "white" }}>
+              Login/Register
             </Link>
           </Button>
         </p>
