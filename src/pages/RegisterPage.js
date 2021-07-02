@@ -11,7 +11,7 @@ const RegisterPage = () => {
   const submit = async (e) => {
     e.preventDefault();
 
-    const roles = [{ name: "ROLE_USER" }];
+    const roles = [{ name: "ROLE_ADMIN" }];
 
     await fetch("http://localhost:8080/users/register", {
       method: "POST",
