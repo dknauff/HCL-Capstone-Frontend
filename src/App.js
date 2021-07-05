@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 
 import CartPage from "./pages/CartPage";
@@ -19,7 +19,9 @@ import OrderedPage from "./pages/OrderedPage";
 function App() {
   const [roles, setRoles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [validLogin, setValidLogin] = useState(true);
+  const [validLogin, setValidLogin] = useState(
+    sessionStorage.getItem("jwt") ? true : false
+  );
   const [redirect, setRedirect] = useState(false);
 
   const constantMock = window.fetch;
@@ -28,28 +30,40 @@ function App() {
       constantMock
         .apply(this, arguments)
         .then((response) => {
+          console.log(response.url);
           if (
-            response.clone().status === 401 ||
-            response.clone().status === 403
+            response.clone().url == "http://localhost:8080/users/register" ||
+            response.clone().url == "http://localhost:8080/users/auth"
           ) {
-            console.log(response.clone().status);
-            console.log("intercepted");
-            reject(response);
-          }
-          if (response.clone()[0] == "http://localhost:8080/users/register") {
+            console.log("registering");
+            resolve(response);
+          } else {
+            if (
+              response.clone().status === 401 ||
+              response.clone().status === 403
+            ) {
+              console.log(response.clone().status);
+              console.log("intercepted");
+              setValidLogin(false);
+              setRoles([""]);
+              setRedirect(true);
+              sessionStorage.removeItem("jwt");
+              reject("unauth");
+            }
+            if (validLogin === false && sessionStorage.getItem("jwt")) {
+              setValidLogin(true);
+            }
             resolve(response);
           }
-          if (validLogin === false) {
-            setValidLogin(true);
-          }
-          resolve(response);
         })
         .catch((e) => {
-          console.log("rejected");
-          sessionStorage.removeItem("jwt");
-          setRoles([""]);
-          setValidLogin(false);
-          setRedirect(true);
+          console.log(e);
+          if (e === "unauth") {
+            setValidLogin(false);
+            setRoles([""]);
+            setRedirect(true);
+          } else {
+          }
         });
     });
   };
@@ -77,42 +91,60 @@ function App() {
   return (
     <div>
       <Router>
-        <Route path="/">{validLogin && <NavBar />}</Route>
-        <Route path="/" exact>
-          <MainPageJumbo />
-        </Route>
-        <Route path="/register">
-          <RegisterPage />
-        </Route>
-        <Route path="/login">
-          <LoginPage />
-        </Route>
-        {validLogin && 
-        <Route path="/payment">
-          <PaymentPage />
-        </Route> &&
-        <Route path="/logout">
-          <LogoutPage />
-        </Route> &&
-        <Route path="/products" exact>
-          <AllProductsPage />
-        </Route> &&
-        <Route path="/productpage/">
-          <ProductDetailsPage />
-        </Route> &&
-        <Route path="/cart">
-          <CartPage />
-        </Route> &&
-        <Route path="/purchase">
-          <OrderedPage />
-        </Route>
-        }
-        {validLogin && roles.includes("ROLE_ADMIN") && (
-          <Route path="/adminpage">
-            <AdminPage />
+        {validLogin && (
+          <Route path="/">
+            {" "}
+            <NavBar />
           </Route>
         )}
+        <Switch>
+          <Route path="/" exact>
+            <MainPageJumbo />
+          </Route>
+          <Route path="/register">
+            <RegisterPage />
+          </Route>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
+          {validLogin && (
+            <Route path="/payment">
+              <PaymentPage />
+            </Route>
+          )}
+          {validLogin && (
+            <Route path="/logout">
+              <LogoutPage />
+            </Route>
+          )}
+          {validLogin && (
+            <Route path="/productpage/">
+              <ProductDetailsPage />
+            </Route>
+          )}
+          {validLogin && (
+            <Route path="/cart">
+              <CartPage />
+            </Route>
+          )}
+          {validLogin && (
+            <Route path="/purchase">
+              <OrderedPage />
+            </Route>
+          )}
 
+          {validLogin && (
+            <Route path="/products" exact>
+              <AllProductsPage />
+            </Route>
+          )}
+          {validLogin && roles.includes("ROLE_ADMIN") && (
+            <Route path="/adminpage">
+              <AdminPage />
+            </Route>
+          )}
+          <Redirect to="/" />
+        </Switch>
         <Route path="/">
           <Footer />
         </Route>

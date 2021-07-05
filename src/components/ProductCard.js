@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 import { Card, Col, Button } from "react-bootstrap";
 
 const ProductCard = (props) => {
   const id = props.id;
+  const [quantity, setQuantity] = useState(props.quantity ? props.quantity : 0);
 
   const removeOneProduct = async () => {
     await fetch(`http://localhost:8080/cart/delete/${id}`, {
@@ -13,6 +15,8 @@ const ProductCard = (props) => {
         Authorization: "Bearer " + sessionStorage.getItem("jwt"),
       },
       body: JSON.stringify(1),
+    }).then(() => {
+      setQuantity(quantity - 1);
     });
   };
 
@@ -46,13 +50,14 @@ const ProductCard = (props) => {
             <Card.Text style={{ color: "black" }}>$ {props.price}</Card.Text>
             {props.quantity && (
               <Card.Text style={{ color: "black" }}>
-                Quantity: {props.quantity}
+                {quantity > 0 ? "Quantity:" + quantity : "Removed from Cart"}
                 <Button
                   onClick={removeOneProduct}
                   variant="danger"
                   size="sm"
                   style={{
                     marginLeft: "10px",
+                    display: quantity > 0 ? "" : "none",
                   }}
                 >
                   -

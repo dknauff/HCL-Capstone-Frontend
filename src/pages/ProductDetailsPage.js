@@ -20,6 +20,7 @@ const ProductDetailsPage = () => {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + sessionStorage.getItem("jwt"),
+        "Access-Control-Allow-Origin": "*",
       },
     })
       .then((response) => {

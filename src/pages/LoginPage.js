@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { cloneElement, useState } from "react";
 import { Redirect } from "react-router-dom";
 
 import { Link } from "react-router-dom";
@@ -9,6 +9,7 @@ const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
 
   const submit = async (e) => {
     e.preventDefault();
@@ -24,14 +25,17 @@ const LoginPage = () => {
         password,
       }),
     });
-
     const content = await response.json();
-    console.log(content.jwtToken);
-    const jwt = content.jwtToken;
-    sessionStorage.setItem("jwt", jwt);
+    if (content.jwtToken) {
+      const jwt = content.jwtToken;
+      sessionStorage.setItem("jwt", jwt);
 
-    createCart();
-    setRedirect(true);
+      createCart();
+      setRedirect(true);
+    } else {
+      console.log(content.message);
+      setErrMsg(content.message);
+    }
   };
 
   const createCart = async () => {
@@ -54,6 +58,9 @@ const LoginPage = () => {
       <Container>
         <Row className="justify-content-sm-center">
           <h2>Login</h2>
+        </Row>
+        <Row className="justify-content-sm-center">
+          {errMsg.length > 0 && errMsg}
         </Row>
         <Row className="justify-content-sm-center">
           <Form onSubmit={submit}>

@@ -15,7 +15,6 @@ const AddCategory = () => {
 
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
-      e.preventDefault();
       e.stopPropagation();
       setValidated(true);
       return;

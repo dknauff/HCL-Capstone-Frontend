@@ -13,6 +13,7 @@ const CartPage = () => {
 
   useEffect(() => {
     setIsLoading(true);
+    console.log("HELLO " + sessionStorage.getItem("jwt"));
     fetch("http://localhost:8080/cart/items", {
       headers: {
         "Content-Type": "application/json",
