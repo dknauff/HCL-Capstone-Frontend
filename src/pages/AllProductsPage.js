@@ -73,7 +73,7 @@ const AllProductsPage = () => {
   const sortCategory = (chosenCategoryId) => {
     setDisplayedProducts(
       loadedProducts.filter(
-        (product) => product.category.categoryId == chosenCategoryId
+        (product) => product.category.categoryId === chosenCategoryId
       )
     );
   };
