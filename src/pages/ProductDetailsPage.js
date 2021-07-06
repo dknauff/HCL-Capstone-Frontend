@@ -81,7 +81,6 @@ const ProductDetailsPage = () => {
               <Button
                 className="btn btn-primary"
                 onClick={addToCart}
-                href="/cart"
               >
                 Add to Cart
               </Button>
