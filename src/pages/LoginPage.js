@@ -37,7 +37,7 @@ const LoginPage = () => {
       setRedirect(true);
     } else {
       console.log(content.message);
-      setErrMsg(content.message);
+      setErrMsg("Incorrect credentials");
     }
   };
 

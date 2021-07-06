@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom";
 const LogoutPage = () => {
   const [redirect, setRedirect] = useState(false);
   useEffect(() => {
+    sessionStorage.removeItem("jwt");
     setTimeout(() => {
       setRedirect(true);
     }, 2500);

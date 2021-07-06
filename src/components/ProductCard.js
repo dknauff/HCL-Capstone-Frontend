@@ -53,7 +53,7 @@ const ProductCard = (props) => {
             <Card.Text style={{ color: "black" }}>$ {props.price}</Card.Text>
             {props.quantity && (
               <Card.Text style={{ color: "black" }}>
-                {quantity > 0 ? "Quantity:" + quantity : "Removed from Cart"}
+                {quantity > 0 ? "Quantity: " + quantity : "Removed from Cart"}
                 <Button
                   onClick={removeOneProduct}
                   variant="danger"
