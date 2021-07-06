@@ -18,11 +18,11 @@ import OrderedPage from "./pages/OrderedPage";
 
 function App() {
   const [roles, setRoles] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [validLogin, setValidLogin] = useState(
     sessionStorage.getItem("jwt") ? true : false
   );
   const [redirect, setRedirect] = useState(false);
+  const [checkRoles, setCheckRoles] = useState(false);
 
   const constantMock = window.fetch;
   window.fetch = function () {
@@ -60,6 +60,7 @@ function App() {
           console.log(e);
           if (e === "unauth") {
             setValidLogin(false);
+            setCheckRoles(false);
             setRoles([""]);
             setRedirect(true);
           } else {
@@ -67,26 +68,6 @@ function App() {
         });
     });
   };
-
-  useEffect(() => {
-    setIsLoading(true);
-    fetch("http://localhost:8080/users/role", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization:
-          "Bearer " +
-          (sessionStorage.getItem("jwt") ? sessionStorage.getItem("jwt") : ""),
-      },
-    })
-      .then((response) => {
-        console.log("RESPONSE");
-        return response.json();
-      })
-      .then((data) => {
-        setIsLoading(false);
-        setRoles(data);
-      });
-  }, []);
 
   return (
     <div>
@@ -138,11 +119,9 @@ function App() {
               <AllProductsPage />
             </Route>
           )}
-          {validLogin && roles.includes("ROLE_ADMIN") && (
-            <Route path="/adminpage">
-              <AdminPage />
-            </Route>
-          )}
+          <Route path="/adminpage">
+            <AdminPage />
+          </Route>
           <Redirect to="/" />
         </Switch>
         <Route path="/">

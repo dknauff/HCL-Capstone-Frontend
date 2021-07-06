@@ -10,7 +10,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
   const [errMsg, setErrMsg] = useState("");
-  const [roles, setRoles] = useState([]);
+  const [role, setRole] = useState([]);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -32,7 +32,7 @@ const LoginPage = () => {
       sessionStorage.setItem("jwt", jwt);
 
       checkRole().then(() => {
-        if (roles.contains("ROLE_USER")) {
+        if (role.includes("ROLE_USER")) {
           createCart();
         }
       });
@@ -55,21 +55,24 @@ const LoginPage = () => {
     });
   };
 
-  const checkRole = fetch("http://localhost:8080/users/role", {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization:
-        "Bearer " +
-        (sessionStorage.getItem("jwt") ? sessionStorage.getItem("jwt") : ""),
-    },
-  })
-    .then((response) => {
-      console.log("RESPONSE");
-      return response.json();
+  const checkRole = async () => {
+    fetch("http://localhost:8080/users/role", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer " +
+          (sessionStorage.getItem("jwt") ? sessionStorage.getItem("jwt") : ""),
+      },
     })
-    .then((data) => {
-      setRoles(data);
-    });
+      .then((response) => {
+        console.log("RESPONSE");
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setRole(data);
+      });
+  };
 
   if (redirect) {
     return <Redirect to="/" />;

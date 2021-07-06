@@ -6,8 +6,40 @@ import DeleteCategory from "../components/DeleteCategory";
 import AddProduct from "../components/AddProduct";
 import DeleteProduct from "../components/DeleteProduct";
 import UpdateOrder from "../components/UpdateOrder";
+import { Redirect } from "react-router-dom";
 
 const AdminPage = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [redirect, setRedirect] = useState(false);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/users/role", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer " +
+          (sessionStorage.getItem("jwt") ? sessionStorage.getItem("jwt") : ""),
+      },
+    })
+      .then((response) => {
+        console.log("RESPONSE");
+        return response.json();
+      })
+      .then((data) => {
+        if (!data.includes("ROLE_ADMIN")) {
+          setRedirect(true);
+        }
+        setIsLoading(false);
+      });
+  });
+
+  if (redirect) {
+    return <Redirect to="/" />;
+  }
+  if (isLoading) {
+    return <div>loading</div>;
+  }
+
   return (
     <div>
       <Container>
