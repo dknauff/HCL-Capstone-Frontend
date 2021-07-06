@@ -10,6 +10,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
   const [errMsg, setErrMsg] = useState("");
+  const [roles, setRoles] = useState([]);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -30,7 +31,12 @@ const LoginPage = () => {
       const jwt = content.jwtToken;
       sessionStorage.setItem("jwt", jwt);
 
-      createCart();
+      checkRole().then(() => {
+        if (roles.contains("ROLE_USER")) {
+          createCart();
+        }
+      });
+
       setRedirect(true);
     } else {
       console.log(content.message);
@@ -48,6 +54,22 @@ const LoginPage = () => {
       body: JSON.stringify({}),
     });
   };
+
+  const checkRole = fetch("http://localhost:8080/users/role", {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization:
+        "Bearer " +
+        (sessionStorage.getItem("jwt") ? sessionStorage.getItem("jwt") : ""),
+    },
+  })
+    .then((response) => {
+      console.log("RESPONSE");
+      return response.json();
+    })
+    .then((data) => {
+      setRoles(data);
+    });
 
   if (redirect) {
     return <Redirect to="/" />;
