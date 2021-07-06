@@ -16,7 +16,7 @@ const ProductDetailsPage = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`http://localhost:8080/product/${id}`, {
+    fetch(`https://capstone-backend-spring.herokuapp.com/product/${id}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + sessionStorage.getItem("jwt"),
@@ -38,14 +38,17 @@ const ProductDetailsPage = () => {
   }, []);
 
   const addToCart = async () => {
-    await fetch(`http://localhost:8080/cart/add/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + sessionStorage.getItem("jwt"),
-      },
-      body: JSON.stringify(1),
-    });
+    await fetch(
+      `https://capstone-backend-spring.herokuapp.com/cart/add/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("jwt"),
+        },
+        body: JSON.stringify(1),
+      }
+    );
   };
 
   if (isLoading) {

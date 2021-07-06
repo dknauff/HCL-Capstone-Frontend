@@ -14,17 +14,20 @@ const LoginPage = () => {
   const submit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:8080/users/auth", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    });
+    const response = await fetch(
+      "https://capstone-backend-spring.herokuapp.com/users/auth",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      }
+    );
     const content = await response.json();
     if (content.jwtToken) {
       const jwt = content.jwtToken;
@@ -39,7 +42,7 @@ const LoginPage = () => {
   };
 
   const createCart = async () => {
-    await fetch("http://localhost:8080/cart/create", {
+    await fetch("https://capstone-backend-spring.herokuapp.com/cart/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

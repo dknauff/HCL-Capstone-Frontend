@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const PaymentPage = () => {
   const deleteCart = async () => {
-    await fetch("http://localhost:8080/cart/delete", {
+    await fetch("https://capstone-backend-spring.herokuapp.com/cart/delete", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -15,7 +15,7 @@ const PaymentPage = () => {
   };
 
   const createCart = async () => {
-    await fetch("http://localhost:8080/cart/create", {
+    await fetch("https://capstone-backend-spring.herokuapp.com/cart/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -21,7 +21,7 @@ const AddCategory = () => {
     }
 
     setValidated(true);
-    await fetch("http://localhost:8080/category", {
+    await fetch("https://capstone-backend-spring.herokuapp.com/category", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
