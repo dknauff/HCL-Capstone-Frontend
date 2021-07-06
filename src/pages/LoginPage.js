@@ -63,7 +63,7 @@ const LoginPage = () => {
           <h2>Login</h2>
         </Row>
         <Row className="justify-content-sm-center">
-          {errMsg.length > 0 && errMsg}
+          {errMsg && <span style={{ color: "red" }}>errMsg</span>}
         </Row>
         <Row className="justify-content-sm-center">
           <Form onSubmit={submit}>
