@@ -30,13 +30,7 @@ const LoginPage = () => {
     if (content.jwtToken) {
       const jwt = content.jwtToken;
       sessionStorage.setItem("jwt", jwt);
-
-      checkRole().then(() => {
-        if (role.includes("ROLE_USER")) {
-          createCart();
-        }
-      });
-
+      checkRole();
       setRedirect(true);
     } else {
       console.log(content.message);
@@ -56,7 +50,7 @@ const LoginPage = () => {
   };
 
   const checkRole = async () => {
-    fetch("http://localhost:8080/users/role", {
+    await fetch("http://localhost:8080/users/role", {
       headers: {
         "Content-Type": "application/json",
         Authorization:
@@ -70,10 +64,19 @@ const LoginPage = () => {
       })
       .then((data) => {
         console.log(data);
-        setRole(data);
+        if (data.includes("ROLE_USER")) {
+          createCart();
+        }
       });
   };
 
+  // useEffect(() => {
+  //   if (!role.length == 0) {
+  //     if (!role.includes("ROLE_USER")) {
+  //       createCart();
+  //     }
+  //   }
+  // });
   if (redirect) {
     return <Redirect to="/" />;
   }
