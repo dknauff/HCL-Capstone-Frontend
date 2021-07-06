@@ -19,7 +19,7 @@ const AllProductsPage = () => {
   // get all products in stock
   useEffect(() => {
     setIsLoading(true);
-    fetch("http://localhost:8080/product/instock", {
+    fetch("https://capstone-backend-spring.herokuapp.com/product/instock", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + sessionStorage.getItem("jwt"),
@@ -45,7 +45,7 @@ const AllProductsPage = () => {
         setDisplayedProducts(products);
       });
 
-    fetch("http://localhost:8080/category/instock", {
+    fetch("https://capstone-backend-spring.herokuapp.com/category/instock", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + sessionStorage.getItem("jwt"),
