@@ -4,9 +4,31 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 
 import { Navbar, Nav } from "react-bootstrap";
 
+import { useState, useEffect } from "react";
+
 // Get Category by id
 
 const NavBar = () => {
+  const [cartItems, setCartItems] = useState(0);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/cart", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer " +
+          (sessionStorage.getItem("jwt") ? sessionStorage.getItem("jwt") : ""),
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        // setCartItems
+        setCartItems(data.numCartItems);
+      });
+  });
+
   return (
     <div>
       <Navbar bg="light" expand="lg" style={{ marginBottom: "40px" }}>
@@ -34,6 +56,7 @@ const NavBar = () => {
             style={{ float: "left" }}
             id="cart-button"
           >
+            <span id="cartItemCount">{cartItems} </span>
             <AiOutlineShoppingCart />
           </Link>
           <Nav.Link>

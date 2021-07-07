@@ -13,10 +13,9 @@ const ProductCard = (props) => {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + sessionStorage.getItem("jwt"),
+        "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify(1),
-    }).then(() => {
-      setQuantity(quantity - 1);
     });
   };
 
@@ -55,6 +54,7 @@ const ProductCard = (props) => {
                   onClick={removeOneProduct}
                   variant="danger"
                   size="sm"
+                  href="/cart"
                   style={{
                     marginLeft: "10px",
                     display: quantity > 0 ? "" : "none",

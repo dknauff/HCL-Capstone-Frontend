@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 
-import { Form, Button, Container, Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import AddCategory from "../components/AddCategory";
 import DeleteCategory from "../components/DeleteCategory";
 import AddProduct from "../components/AddProduct";
 import DeleteProduct from "../components/DeleteProduct";
 import UpdateOrder from "../components/UpdateOrder";
 import { Redirect } from "react-router-dom";
+import UpdateProduct from "../components/UpdateProduct";
+import UpdateCategory from "../components/UpdateCategory";
 
 const AdminPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -50,11 +52,13 @@ const AdminPage = () => {
           <h2>Category</h2>
           <AddCategory />
           <DeleteCategory />
+          <UpdateCategory />
         </Row>
         <Row className="justify-content-sm-center">
           <h2>Product</h2>
           <AddProduct />
           <DeleteProduct />
+          <UpdateProduct />
         </Row>
         <Row className="justify-content-sm-center">
           <h2>Order</h2>

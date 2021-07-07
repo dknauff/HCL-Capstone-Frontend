@@ -8,7 +8,7 @@ import { Form, Button, Container, Row } from "react-bootstrap";
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [redirect, setRedirect] = useState(false);
+  const [redirect, setRedirect] = useState(0);
   const [errMsg, setErrMsg] = useState("");
   const [role, setRole] = useState([]);
 
@@ -31,7 +31,6 @@ const LoginPage = () => {
       const jwt = content.jwtToken;
       sessionStorage.setItem("jwt", jwt);
       checkRole();
-      setRedirect(true);
     } else {
       console.log(content.message);
       setErrMsg(content.message);
@@ -64,21 +63,22 @@ const LoginPage = () => {
       })
       .then((data) => {
         console.log(data);
+        sessionStorage.setItem("role", data);
         if (data.includes("ROLE_USER")) {
           createCart();
+          setRedirect(1);
+        } else {
+          setRedirect(2);
         }
       });
   };
 
-  // useEffect(() => {
-  //   if (!role.length == 0) {
-  //     if (!role.includes("ROLE_USER")) {
-  //       createCart();
-  //     }
-  //   }
-  // });
-  if (redirect) {
+  if (redirect === 1) {
     return <Redirect to="/" />;
+  }
+
+  if (redirect === 2) {
+    return <Redirect to="/adminpage" />;
   }
 
   return (
@@ -88,7 +88,7 @@ const LoginPage = () => {
           <h2>Login</h2>
         </Row>
         <Row className="justify-content-sm-center">
-          {errMsg.length > 0 && errMsg}
+          {errMsg && <span style={{ color: "red" }}>Bad Credentials</span>}
         </Row>
         <Row className="justify-content-sm-center">
           <Form onSubmit={submit}>

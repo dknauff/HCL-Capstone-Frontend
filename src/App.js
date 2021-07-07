@@ -68,16 +68,18 @@ function App() {
         });
     });
   };
-
+  useEffect(() => {});
   return (
     <div>
       <Router>
-        {validLogin && (
-          <Route path="/">
-            {" "}
-            <NavBar />
-          </Route>
-        )}
+        {validLogin &&
+          sessionStorage.getItem("role") &&
+          sessionStorage.getItem("role").includes("ROLE_USER") && (
+            <Route path="/">
+              {" "}
+              <NavBar />
+            </Route>
+          )}
         <Switch>
           <Route path="/" exact>
             <MainPageJumbo />
@@ -85,9 +87,11 @@ function App() {
           <Route path="/register">
             <RegisterPage />
           </Route>
-          <Route path="/login">
-            <LoginPage />
-          </Route>
+          {!validLogin && (
+            <Route path="/login">
+              <LoginPage />
+            </Route>
+          )}
           {validLogin && (
             <Route path="/payment">
               <PaymentPage />
@@ -119,9 +123,11 @@ function App() {
               <AllProductsPage />
             </Route>
           )}
-          <Route path="/adminpage">
-            <AdminPage />
-          </Route>
+          {validLogin && (
+            <Route path="/adminpage">
+              <AdminPage />
+            </Route>
+          )}
           <Redirect to="/" />
         </Switch>
         <Route path="/">

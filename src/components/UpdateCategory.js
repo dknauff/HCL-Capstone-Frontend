@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { Modal, Button, Form } from "react-bootstrap";
 
-const DeleteCategory = () => {
+const UpdateCategory = () => {
   const [categoryId, setCategoryId] = useState(0);
   const [categories, setCategories] = useState([]);
+  const [categoryName, setCategoryName] = useState("");
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -15,31 +16,27 @@ const DeleteCategory = () => {
 
   const submit = async (e) => {
     e.preventDefault();
-    console.log(categoryId);
 
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
-      e.preventDefault();
       e.stopPropagation();
       setValidated(true);
       return;
     }
 
     setValidated(true);
-    await fetch(`http://localhost:8080/category/instock/${categoryId}`, {
+    await fetch(`http://localhost:8080/category/${categoryId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + sessionStorage.getItem("jwt"),
       },
-      body: JSON.stringify(false),
+      body: JSON.stringify({
+        categoryId,
+        categoryName,
+      }),
     })
       .then((response) => {
-        console.log(response.status);
-        if (response.status === 401) {
-          console.log("REDIRECT USER TO LOG IN");
-          return;
-        }
         if (response.status != 200) {
           setValidated(false);
         }
@@ -47,9 +44,6 @@ const DeleteCategory = () => {
       })
       .then((data) => {
         console.log(data);
-        if (data === "Updated successfully") {
-          handleCategories();
-        }
       });
   };
 
@@ -87,7 +81,7 @@ const DeleteCategory = () => {
           handleCategories();
         }}
       >
-        Delete
+        Update
       </Button>
 
       <Modal
@@ -97,12 +91,12 @@ const DeleteCategory = () => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Delete a Category</Modal.Title>
+          <Modal.Title>Update a Category</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form noValidate validated={validated} onSubmit={submit}>
             <Form.Group controlId="formSelectCategory">
-              <Form.Label>Select Category to Delete</Form.Label>
+              <Form.Label>Select Category to Update</Form.Label>
               <Form.Control
                 as="select"
                 onChange={(e) => setCategoryId(e.target.value)}
@@ -112,9 +106,22 @@ const DeleteCategory = () => {
                 ))}
               </Form.Control>
             </Form.Group>
+            <Form.Group controlId="formProductName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                placeholder="Enter Category Name"
+                value={categoryName}
+                onChange={(e) => setCategoryName(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                Please enter a category name.
+              </Form.Control.Feedback>
+            </Form.Group>
             <div style={{ textAlign: "center" }}>
               <Button variant="primary" type="submit" value="Register User">
-                Delete
+                Update
               </Button>
             </div>
           </Form>
@@ -124,4 +131,4 @@ const DeleteCategory = () => {
   );
 };
 
-export default DeleteCategory;
+export default UpdateCategory;

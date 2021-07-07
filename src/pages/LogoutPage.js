@@ -3,16 +3,21 @@ import { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 
 const LogoutPage = () => {
-  const [redirect, setRedirect] = useState(false);
   useEffect(() => {
+    sessionStorage.removeItem("jwt");
     setTimeout(() => {
-      setRedirect(true);
+      signOut();
     }, 2500);
-  }, [redirect]);
+  });
 
-  if (redirect) {
-    return <Redirect to="/login" />;
-  }
+  const signOut = async () => {
+    await fetch("http://localhost:8080/users/role", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
   return (
     <div>
       <Container>
