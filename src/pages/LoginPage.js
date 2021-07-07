@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import { Form, Button, Container, Row } from "react-bootstrap";
 
-const LoginPage = () => {
+const LoginPage = (params) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(0);
@@ -64,6 +64,7 @@ const LoginPage = () => {
       .then((data) => {
         console.log(data);
         sessionStorage.setItem("role", data);
+        params.setRoles(data);
         if (data.includes("ROLE_USER")) {
           createCart();
           setRedirect(1);

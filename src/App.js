@@ -61,6 +61,7 @@ function App() {
           if (e === "unauth") {
             setValidLogin(false);
             setCheckRoles(false);
+            sessionStorage.setItem("role", []);
             setRoles([""]);
             setRedirect(true);
           } else {
@@ -68,28 +69,35 @@ function App() {
         });
     });
   };
-  useEffect(() => {});
+  useEffect(() => {
+    if (sessionStorage.getItem("role") != roles) {
+      if (sessionStorage.getItem("role")) {
+        setRoles(sessionStorage.getItem("role"));
+      }
+    }
+  });
+
   return (
     <div>
       <Router>
-        {validLogin &&
-          sessionStorage.getItem("role") &&
-          sessionStorage.getItem("role").includes("ROLE_USER") && (
-            <Route path="/">
-              {" "}
-              <NavBar />
+        {validLogin && roles.includes("ROLE_USER") && (
+          <Route path="/">
+            {" "}
+            <NavBar />
+          </Route>
+        )}
+        <Switch>
+          {!roles.includes("ROLE_ADMIN") && (
+            <Route path="/" exact>
+              <MainPageJumbo />
             </Route>
           )}
-        <Switch>
-          <Route path="/" exact>
-            <MainPageJumbo />
-          </Route>
           <Route path="/register">
             <RegisterPage />
           </Route>
           {!validLogin && (
             <Route path="/login">
-              <LoginPage />
+              <LoginPage setRoles={setRoles} />
             </Route>
           )}
           {validLogin && (
@@ -127,6 +135,9 @@ function App() {
             <Route path="/adminpage">
               <AdminPage />
             </Route>
+          )}
+          {validLogin && roles.includes("ROLE_ADMIN") && (
+            <Redirect to="/adminpage" />
           )}
           <Redirect to="/" />
         </Switch>

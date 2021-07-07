@@ -16,31 +16,32 @@ const AdminPage = () => {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:8080/users/role", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization:
-          "Bearer " +
-          (sessionStorage.getItem("jwt") ? sessionStorage.getItem("jwt") : ""),
-      },
-    })
-      .then((response) => {
-        console.log("RESPONSE");
-        return response.json();
+    if (!isLoading) {
+      fetch("http://localhost:8080/users/role", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer " +
+            (sessionStorage.getItem("jwt")
+              ? sessionStorage.getItem("jwt")
+              : ""),
+        },
       })
-      .then((data) => {
-        if (!data.includes("ROLE_ADMIN")) {
-          setRedirect(true);
-        }
-        setIsLoading(false);
-      });
+        .then((response) => {
+          console.log("RESPONSE");
+          return response.json();
+        })
+        .then((data) => {
+          if (!data.includes("ROLE_ADMIN")) {
+            setRedirect(true);
+          }
+          setIsLoading(false);
+        });
+    }
   });
 
   if (redirect) {
     return <Redirect to="/" />;
-  }
-  if (isLoading) {
-    return <div>loading</div>;
   }
 
   return (
