@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Nav } from "react-bootstrap";
 import AddCategory from "../components/AddCategory";
 import DeleteCategory from "../components/DeleteCategory";
 import AddProduct from "../components/AddProduct";
@@ -9,6 +9,7 @@ import UpdateOrder from "../components/UpdateOrder";
 import { Redirect } from "react-router-dom";
 import UpdateProduct from "../components/UpdateProduct";
 import UpdateCategory from "../components/UpdateCategory";
+import { Link } from "react-router-dom";
 
 const AdminPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -44,6 +45,11 @@ const AdminPage = () => {
 
   return (
     <div>
+      <div style={{ textAlign: "right" }}>
+        <Nav.Link>
+          <Link to="/logout">Logout</Link>
+        </Nav.Link>
+      </div>
       <Container>
         <Row className="justify-content-sm-center">
           <h2>Admin Controls</h2>
