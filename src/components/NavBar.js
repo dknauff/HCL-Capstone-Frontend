@@ -12,7 +12,7 @@ const NavBar = () => {
   const [cartItems, setCartItems] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:8080/cart", {
+    fetch("https://capstone-backend-spring.herokuapp.com/cart", {
       headers: {
         "Content-Type": "application/json",
         Authorization:
