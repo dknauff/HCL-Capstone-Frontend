@@ -18,11 +18,11 @@ import OrderedPage from "./pages/OrderedPage";
 
 function App() {
   const [roles, setRoles] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [validLogin, setValidLogin] = useState(
     sessionStorage.getItem("jwt") ? true : false
   );
   const [redirect, setRedirect] = useState(false);
+  const [checkRoles, setCheckRoles] = useState(false);
 
   const constantMock = window.fetch;
   window.fetch = function () {
@@ -62,6 +62,8 @@ function App() {
           console.log(e);
           if (e === "unauth") {
             setValidLogin(false);
+            setCheckRoles(false);
+            sessionStorage.setItem("role", []);
             setRoles([""]);
             setRedirect(true);
           } else {
@@ -69,46 +71,37 @@ function App() {
         });
     });
   };
-
   useEffect(() => {
-    setIsLoading(true);
-    fetch("https://capstone-backend-spring.herokuapp.com/users/role", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization:
-          "Bearer " +
-          (sessionStorage.getItem("jwt") ? sessionStorage.getItem("jwt") : ""),
-      },
-    })
-      .then((response) => {
-        console.log("RESPONSE");
-        return response.json();
-      })
-      .then((data) => {
-        setIsLoading(false);
-        setRoles(data);
-      });
-  }, []);
+    if (sessionStorage.getItem("role") != roles) {
+      if (sessionStorage.getItem("role")) {
+        setRoles(sessionStorage.getItem("role"));
+      }
+    }
+  });
 
   return (
     <div>
       <Router>
-        {validLogin && (
+        {validLogin && roles.includes("ROLE_USER") && (
           <Route path="/">
             {" "}
             <NavBar />
           </Route>
         )}
         <Switch>
-          <Route path="/" exact>
-            <MainPageJumbo />
-          </Route>
+          {!roles.includes("ROLE_ADMIN") && (
+            <Route path="/" exact>
+              <MainPageJumbo />
+            </Route>
+          )}
           <Route path="/register">
             <RegisterPage />
           </Route>
-          <Route path="/login">
-            <LoginPage />
-          </Route>
+          {!validLogin && (
+            <Route path="/login">
+              <LoginPage setRoles={setRoles} />
+            </Route>
+          )}
           {validLogin && (
             <Route path="/payment">
               <PaymentPage />
@@ -140,10 +133,13 @@ function App() {
               <AllProductsPage />
             </Route>
           )}
-          {validLogin && roles.includes("ROLE_ADMIN") && (
+          {validLogin && (
             <Route path="/adminpage">
               <AdminPage />
             </Route>
+          )}
+          {validLogin && roles.includes("ROLE_ADMIN") && (
+            <Redirect to="/adminpage" />
           )}
           <Redirect to="/" />
         </Switch>

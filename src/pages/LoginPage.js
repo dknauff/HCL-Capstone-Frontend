@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 
 import { Form, Button, Container, Row } from "react-bootstrap";
 
-const LoginPage = () => {
+const LoginPage = (params) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [redirect, setRedirect] = useState(false);
+  const [redirect, setRedirect] = useState(0);
   const [errMsg, setErrMsg] = useState("");
+  const [role, setRole] = useState([]);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -32,9 +33,7 @@ const LoginPage = () => {
     if (content.jwtToken) {
       const jwt = content.jwtToken;
       sessionStorage.setItem("jwt", jwt);
-
-      createCart();
-      setRedirect(true);
+      checkRole();
     } else {
       console.log(content.message);
       setErrMsg("Incorrect credentials");
@@ -52,8 +51,38 @@ const LoginPage = () => {
     });
   };
 
-  if (redirect) {
+  const checkRole = async () => {
+    await fetch("http://localhost:8080/users/role", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer " +
+          (sessionStorage.getItem("jwt") ? sessionStorage.getItem("jwt") : ""),
+      },
+    })
+      .then((response) => {
+        console.log("RESPONSE");
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        sessionStorage.setItem("role", data);
+        params.setRoles(data);
+        if (data.includes("ROLE_USER")) {
+          createCart();
+          setRedirect(1);
+        } else {
+          setRedirect(2);
+        }
+      });
+  };
+
+  if (redirect === 1) {
     return <Redirect to="/" />;
+  }
+
+  if (redirect === 2) {
+    return <Redirect to="/adminpage" />;
   }
 
   return (
@@ -63,7 +92,9 @@ const LoginPage = () => {
           <h2>Login</h2>
         </Row>
         <Row className="justify-content-sm-center">
-          {errMsg && <span style={{ color: "red" }}>errMsg</span>}
+
+          {errMsg && <span style={{ color: "red" }}>Bad Credentials</span>}
+
         </Row>
         <Row className="justify-content-sm-center">
           <Form onSubmit={submit}>

@@ -38,17 +38,17 @@ const ProductDetailsPage = () => {
   }, []);
 
   const addToCart = async () => {
-    await fetch(
-      `https://capstone-backend-spring.herokuapp.com/cart/add/${id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + sessionStorage.getItem("jwt"),
-        },
-        body: JSON.stringify(1),
-      }
-    );
+
+    await fetch(`http://localhost:8080/cart/add/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem("jwt"),
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify(1),
+    });
+
   };
 
   if (isLoading) {
@@ -75,9 +75,12 @@ const ProductDetailsPage = () => {
               <Card.Subtitle className="mb-2 text-muted">
                 {category}
               </Card.Subtitle>
-            </center>
-            <Card.Text>{loadedProduct.description}</Card.Text>
-            <center>
+              <Card.Subtitle className="mb-2 text-muted">
+                ${loadedProduct.price}
+              </Card.Subtitle>
+
+              <Card.Text>{loadedProduct.description}</Card.Text>
+
               <Button
                 className="btn btn-primary"
                 onClick={addToCart}

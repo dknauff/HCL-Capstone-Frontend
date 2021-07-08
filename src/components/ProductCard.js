@@ -8,18 +8,15 @@ const ProductCard = (props) => {
   const [quantity, setQuantity] = useState(props.quantity ? props.quantity : 0);
 
   const removeOneProduct = async () => {
-    await fetch(
-      `https://capstone-backend-spring.herokuapp.com/cart/delete/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + sessionStorage.getItem("jwt"),
-        },
-        body: JSON.stringify(1),
-      }
-    ).then(() => {
-      setQuantity(quantity - 1);
+
+    await fetch(`http://localhost:8080/cart/delete/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem("jwt"),
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify(1),
     });
   };
 
@@ -58,6 +55,7 @@ const ProductCard = (props) => {
                   onClick={removeOneProduct}
                   variant="danger"
                   size="sm"
+                  href="/cart"
                   style={{
                     marginLeft: "10px",
                     display: quantity > 0 ? "" : "none",
