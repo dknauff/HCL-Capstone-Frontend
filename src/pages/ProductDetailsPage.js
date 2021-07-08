@@ -16,7 +16,7 @@ const ProductDetailsPage = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`https://capstone-backend-spring.herokuapp.com/product/${id}`, {
+    fetch(`http://localhost:8080/product/${id}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + sessionStorage.getItem("jwt"),
@@ -38,7 +38,6 @@ const ProductDetailsPage = () => {
   }, []);
 
   const addToCart = async () => {
-
     await fetch(`http://localhost:8080/cart/add/${id}`, {
       method: "PUT",
       headers: {
@@ -48,7 +47,6 @@ const ProductDetailsPage = () => {
       },
       body: JSON.stringify(1),
     });
-
   };
 
   if (isLoading) {
@@ -84,6 +82,7 @@ const ProductDetailsPage = () => {
               <Button
                 className="btn btn-primary"
                 onClick={addToCart}
+                href="/cart"
               >
                 Add to Cart
               </Button>

@@ -14,7 +14,7 @@ const CartPage = () => {
   useEffect(() => {
     setIsLoading(true);
     console.log("HELLO " + sessionStorage.getItem("jwt"));
-    fetch("https://capstone-backend-spring.herokuapp.com/cart/items", {
+    fetch("http://localhost:8080/cart/items", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + sessionStorage.getItem("jwt"),

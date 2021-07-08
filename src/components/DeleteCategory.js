@@ -26,17 +26,14 @@ const DeleteCategory = () => {
     }
 
     setValidated(true);
-    await fetch(
-      `https://capstone-backend-spring.herokuapp.com/category/instock/${categoryId}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + sessionStorage.getItem("jwt"),
-        },
-        body: JSON.stringify(false),
-      }
-    )
+    await fetch(`http://localhost:8080/category/instock/${categoryId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem("jwt"),
+      },
+      body: JSON.stringify(false),
+    })
       .then((response) => {
         console.log(response.status);
         if (response.status === 401) {
@@ -57,7 +54,7 @@ const DeleteCategory = () => {
   };
 
   const handleCategories = async () => {
-    fetch("https://capstone-backend-spring.herokuapp.com/category/instock", {
+    fetch("http://localhost:8080/category/instock", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + sessionStorage.getItem("jwt"),
