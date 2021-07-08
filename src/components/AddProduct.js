@@ -29,7 +29,7 @@ const AddProduct = () => {
     }
 
     setValidated(true);
-    await fetch("http://localhost:8080/product", {
+    await fetch("https://capstone-backend-spring.herokuapp.com/product", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ const AddProduct = () => {
   };
 
   const handleCategories = async () => {
-    fetch("http://localhost:8080/category/instock", {
+    fetch("https://capstone-backend-spring.herokuapp.com/category/instock", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + sessionStorage.getItem("jwt"),

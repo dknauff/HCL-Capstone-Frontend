@@ -8,7 +8,7 @@ const PaymentPage = () => {
   const [cardErr, setCardErr] = useState(false);
 
   const deleteCart = async () => {
-    await fetch("http://localhost:8080/cart/delete", {
+    await fetch("https://capstone-backend-spring.herokuapp.com/cart/delete", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -18,6 +18,7 @@ const PaymentPage = () => {
       setRedirect(true);
     });
   };
+
 
   const validator = (e) => {
     e.preventDefault();

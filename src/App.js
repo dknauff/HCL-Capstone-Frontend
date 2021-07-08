@@ -32,8 +32,10 @@ function App() {
         .then((response) => {
           console.log(response.url);
           if (
-            response.clone().url == "http://localhost:8080/users/register" ||
-            response.clone().url == "http://localhost:8080/users/auth"
+            response.clone().url ==
+              "https://capstone-backend-spring.herokuapp.com/users/register" ||
+            response.clone().url ==
+              "https://capstone-backend-spring.herokuapp.com/users/auth"
           ) {
             console.log("registering");
             resolve(response);

@@ -15,17 +15,20 @@ const LoginPage = (params) => {
   const submit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:8080/users/auth", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    });
+    const response = await fetch(
+      "https://capstone-backend-spring.herokuapp.com/users/auth",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      }
+    );
     const content = await response.json();
     if (content.jwtToken) {
       const jwt = content.jwtToken;
@@ -33,12 +36,12 @@ const LoginPage = (params) => {
       checkRole();
     } else {
       console.log(content.message);
-      setErrMsg(content.message);
+      setErrMsg("Incorrect credentials");
     }
   };
 
   const createCart = async () => {
-    await fetch("http://localhost:8080/cart/create", {
+    await fetch("https://capstone-backend-spring.herokuapp.com/cart/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -89,7 +92,9 @@ const LoginPage = (params) => {
           <h2>Login</h2>
         </Row>
         <Row className="justify-content-sm-center">
+
           {errMsg && <span style={{ color: "red" }}>Bad Credentials</span>}
+
         </Row>
         <Row className="justify-content-sm-center">
           <Form onSubmit={submit}>

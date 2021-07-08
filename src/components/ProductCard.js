@@ -8,6 +8,7 @@ const ProductCard = (props) => {
   const [quantity, setQuantity] = useState(props.quantity ? props.quantity : 0);
 
   const removeOneProduct = async () => {
+
     await fetch(`http://localhost:8080/cart/delete/${id}`, {
       method: "DELETE",
       headers: {
@@ -49,7 +50,7 @@ const ProductCard = (props) => {
             <Card.Text style={{ color: "black" }}>$ {props.price}</Card.Text>
             {props.quantity && (
               <Card.Text style={{ color: "black" }}>
-                {quantity > 0 ? "Quantity:" + quantity : "Removed from Cart"}
+                {quantity > 0 ? "Quantity: " + quantity : "Removed from Cart"}
                 <Button
                   onClick={removeOneProduct}
                   variant="danger"
