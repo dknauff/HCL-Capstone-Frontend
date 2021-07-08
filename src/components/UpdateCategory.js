@@ -25,17 +25,20 @@ const UpdateCategory = () => {
     }
 
     setValidated(true);
-    await fetch(`http://localhost:8080/category/${categoryId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + sessionStorage.getItem("jwt"),
-      },
-      body: JSON.stringify({
-        categoryId,
-        categoryName,
-      }),
-    })
+    await fetch(
+      `https://capstone-backend-spring.herokuapp.com/category/${categoryId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("jwt"),
+        },
+        body: JSON.stringify({
+          categoryId,
+          categoryName,
+        }),
+      }
+    )
       .then((response) => {
         if (response.status != 200) {
           setValidated(false);
@@ -48,7 +51,7 @@ const UpdateCategory = () => {
   };
 
   const handleCategories = async () => {
-    fetch("http://localhost:8080/category/instock", {
+    fetch("https://capstone-backend-spring.herokuapp.com/category/instock", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + sessionStorage.getItem("jwt"),

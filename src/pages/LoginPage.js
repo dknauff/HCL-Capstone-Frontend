@@ -52,7 +52,7 @@ const LoginPage = (params) => {
   };
 
   const checkRole = async () => {
-    await fetch("http://localhost:8080/users/role", {
+    await fetch("https://capstone-backend-spring.herokuapp.com/users/role", {
       headers: {
         "Content-Type": "application/json",
         Authorization:
@@ -92,9 +92,7 @@ const LoginPage = (params) => {
           <h2>Login</h2>
         </Row>
         <Row className="justify-content-sm-center">
-
           {errMsg && <span style={{ color: "red" }}>Bad Credentials</span>}
-
         </Row>
         <Row className="justify-content-sm-center">
           <Form onSubmit={submit}>

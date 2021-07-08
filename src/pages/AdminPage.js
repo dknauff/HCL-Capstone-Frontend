@@ -17,7 +17,7 @@ const AdminPage = () => {
 
   useEffect(() => {
     if (!isLoading) {
-      fetch("http://localhost:8080/users/role", {
+      fetch("https://capstone-backend-spring.herokuapp.com/users/role", {
         headers: {
           "Content-Type": "application/json",
           Authorization:

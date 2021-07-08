@@ -11,7 +11,7 @@ const LogoutPage = () => {
   });
 
   const signOut = async () => {
-    await fetch("http://localhost:8080/users/role", {
+    await fetch("https://capstone-backend-spring.herokuapp.com/users/role", {
       headers: {
         "Content-Type": "application/json",
       },

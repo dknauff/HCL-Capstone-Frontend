@@ -23,14 +23,17 @@ const DeleteProduct = () => {
     }
 
     setValidated(true);
-    await fetch(`http://localhost:8080/product/instock/${productId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + sessionStorage.getItem("jwt"),
-      },
-      body: JSON.stringify(false),
-    })
+    await fetch(
+      `https://capstone-backend-spring.herokuapp.com/product/instock/${productId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("jwt"),
+        },
+        body: JSON.stringify(false),
+      }
+    )
       .then((response) => {
         console.log(response.status);
         if (response.status != 200) {
@@ -47,7 +50,7 @@ const DeleteProduct = () => {
   };
 
   const handleProducts = async () => {
-    fetch("http://localhost:8080/product/instock", {
+    fetch("https://capstone-backend-spring.herokuapp.com/product/instock", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + sessionStorage.getItem("jwt"),

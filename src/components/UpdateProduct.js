@@ -30,23 +30,26 @@ const UpdateProduct = () => {
     }
 
     setValidated(true);
-    await fetch(`http://localhost:8080/product/${productId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + sessionStorage.getItem("jwt"),
-      },
-      body: JSON.stringify({
-        productId,
-        name,
-        description,
-        price,
-        imageUrl,
-        category: {
-          categoryId: categoryId,
+    await fetch(
+      `https://capstone-backend-spring.herokuapp.com/product/${productId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("jwt"),
         },
-      }),
-    })
+        body: JSON.stringify({
+          productId,
+          name,
+          description,
+          price,
+          imageUrl,
+          category: {
+            categoryId: categoryId,
+          },
+        }),
+      }
+    )
       .then((response) => {
         return response.json();
       })
@@ -56,7 +59,7 @@ const UpdateProduct = () => {
   };
 
   const handleCategories = async () => {
-    fetch("http://localhost:8080/category/instock", {
+    fetch("https://capstone-backend-spring.herokuapp.com/category/instock", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + sessionStorage.getItem("jwt"),
@@ -81,7 +84,7 @@ const UpdateProduct = () => {
   };
 
   const handleProducts = async () => {
-    fetch("http://localhost:8080/product/instock", {
+    fetch("https://capstone-backend-spring.herokuapp.com/product/instock", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + sessionStorage.getItem("jwt"),
