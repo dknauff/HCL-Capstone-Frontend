@@ -73,9 +73,12 @@ const ProductDetailsPage = () => {
               <Card.Subtitle className="mb-2 text-muted">
                 {category}
               </Card.Subtitle>
-            </center>
-            <Card.Text>{loadedProduct.description}</Card.Text>
-            <center>
+              <Card.Subtitle className="mb-2 text-muted">
+                ${loadedProduct.price}
+              </Card.Subtitle>
+
+              <Card.Text>{loadedProduct.description}</Card.Text>
+
               <Button
                 className="btn btn-primary"
                 onClick={addToCart}
